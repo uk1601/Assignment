@@ -1,6 +1,6 @@
 FROM redis:latest
 RUN yum -y install python3 python3-pip curl
-RUN pip install redis flask
+RUN pip install redis flask -y
 
 RUN mkdir /app
 COPY app.py /app/app.py
