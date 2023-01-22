@@ -50,3 +50,7 @@ The above code is a Bash script that creates and runs a Docker container for a s
 The first command sudo docker build -t myapi:latest . creates a Docker image using the Dockerfile in the current directory. The . at the end specifies the current directory. The -t option specifies a name and a tag for the image, in this case, it's named myapi and tagged as latest.
 
 The next command sudo docker run -d -p 80:5000/tcp myapi runs a Docker container in detached mode using the image created by the previous command. The -d option specifies detached mode, which runs the container in the background. The -p option maps the host machine's port 80 to the container's port 5000. The myapi at the end specifies the image to use for the container.
+  
+  
+  
+Overall, RUN the build.sh script manually which builds and starts a container. It executes the flask app file and installs redis while creating the container. Also, it exposes container's 5000 port to host machine's 80. Thereby it can be accessed using hostmachine's ip and port and execute API endpoints.
