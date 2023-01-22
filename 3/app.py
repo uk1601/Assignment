@@ -12,7 +12,7 @@ app = Flask(__name__)
 #Homepage endpoint
 @app.route('/', methods = ['GET'])
 def home():
-	return "Home Page!! Add word(s) or Autocomplete can be performed"
+	return "Home Page!! Add word or Autocomplete can be performed "
 
 #Add_word endpoint
 @app.route('/add-word/word=<word>', methods = ['GET'])
@@ -20,11 +20,10 @@ def add_word(word):
 	dic={}
 	dic[word]=1
 	r.zadd(redis_key,dic)
-	return "word added"
+	return f"{word} is word added"
 
 #If multiple words are to be added at once.
 #Add_words endpoint
-
 # @app.route('/add-words/words=<words>', methods = ['GET'])
 # def add_words(words):
 # 	dic={}
@@ -47,14 +46,15 @@ def autocomplete(query):
 #Autocomplete endpoint if query is empty	
 @app.route('/autocomplete/query=', methods = ['GET'])	
 def default():
-	redis_start='-'
-	redis_end='[z'
-	data=r.zrangebylex(redis_key,redis_start,redis_end)
+	data=r.zrange(redis_key,0,-1)
 	response=[]
 	for i in data:
 		response.append(i.decode())
 	return response
-	
+
+@app.errorhandler(404)
+def notfound(e):
+	return "Error 404 occured"	
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0')
