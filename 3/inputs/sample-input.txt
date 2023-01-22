@@ -1,0 +1,4 @@
+/add_word/word=foo
+/add_word/word=example
+/add_word/word=foobar
+/add_word/word=exam
